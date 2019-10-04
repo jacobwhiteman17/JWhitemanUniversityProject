@@ -17,7 +17,7 @@ public class Student {
         nextID++;
     }
 
-    public void takeClass(int credits, float grade){
+    public void takeClass(int credits, float grade){//fix this at the end
         numberOfCredits = credits;
         gpa = grade/numberOfCredits;
     }
