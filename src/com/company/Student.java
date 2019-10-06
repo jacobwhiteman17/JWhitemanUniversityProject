@@ -2,7 +2,7 @@ package com.company;
 
 public class Student {
     private int studentID;
-    private static int nextID = 2000;//may need to make static?
+    private static int nextID = 2000;
     private float gpa;
     private Professor advisor;
     private int numberOfCredits;
@@ -13,13 +13,14 @@ public class Student {
         advisor = initialAdvisor;
         gpa = 0.0f;
         numberOfCredits = 0;
-        studentID = nextID;//update?
+        studentID = nextID;
         nextID++;
     }
 
     public void takeClass(int credits, float grade){//fix this at the end
         numberOfCredits = credits;
-        gpa = grade/numberOfCredits;
+        var gradePoints = gpa*credits;
+        gpa = (gradePoints*numberOfCredits)/numberOfCredits;
     }
 
     public void changeAdvisor(Professor newAdvisor){

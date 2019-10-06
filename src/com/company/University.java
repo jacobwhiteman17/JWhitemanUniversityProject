@@ -15,8 +15,7 @@ public class University {
     }
 
     public Optional findStudent(int studentID) {
-        studentList = new ArrayList<Student>();
-        for (var student : studentList) {//fix this later? says list is always empty
+        for (var student : studentList) {
             if (student.getStudentID() == studentID) {
                 return Optional.of(student);
             }
@@ -35,7 +34,7 @@ public class University {
     }
 
     public void graduateStudents() {
-        studentList = new ArrayList<Student>();
+        //studentList = new ArrayList<Student>();
         for (var student : studentList) {
             if (student.getGPA() >= 2 && student.getCreditHours() >= 20) {//might have to change this?
                 studentList.remove(student);
@@ -51,6 +50,7 @@ public class University {
         }
     }
 
+
     private void printMenu() {
         System.out.println("Please Select One of the Following:");
         System.out.println("  [1] Admit Student");
@@ -61,9 +61,6 @@ public class University {
         System.out.print("Type the number of your selection:");
     }
 
-    public void studentMenu(){
-
-    }
 
     public void runUniversity() {
         var input = new Scanner(System.in);
@@ -96,13 +93,32 @@ public class University {
                 case 4:
                     System.out.println("Enter a studentID: ");
                     var studentID = input.nextInt();
-                    var student= findStudent(studentID);
+                    Optional<Student> student= findStudent(studentID);
                     if (student.isPresent()) {
-                        System.out.println(student.toString());
+                        Student foundStudent = student.get();
+                        System.out.println(foundStudent.toString());
                         System.out.println("Would you like to bring up the student menu? (Type 'Y' if so)");
                         var selectMenu = input.nextLine();
-                        if(!selectMenu.toUpperCase().equals("Y"))
-                            studentMenu();
+                        if(!selectMenu.toUpperCase().equals("Y")) {
+                            System.out.println("Please Select One of the Following:");
+                            System.out.println("  [1] Take Class");
+                            System.out.println("  [2] Select Advisor");
+                            input.nextLine();
+                            switch (userResponse){
+                                case 1:
+                                    System.out.println("Enter your credits: ");
+                                    var theCredits = input.nextInt();
+                                    System.out.println("Enter your grade: ");
+                                    var theGrade = input.nextInt();
+                                    foundStudent.takeClass(theCredits,theGrade);
+                                    System.out.println("Class taken");
+                                    break;
+                                case 2:
+                                    break;
+                                default:
+                                    System.out.println("Say that again?");
+                            }
+                        }
                         else
                             break;
                     }
