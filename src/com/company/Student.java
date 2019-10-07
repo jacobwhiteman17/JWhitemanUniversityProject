@@ -17,10 +17,12 @@ public class Student {
         nextID++;
     }
 
-    public void takeClass(int credits, float grade){//fix this at the end
+    public void takeClass(int credits, float grade){
         numberOfCredits = credits;
-        var gradePoints = gpa*credits;
-        gpa = (gradePoints*numberOfCredits)/numberOfCredits;
+        var gradePoints = grade;
+        var totalPoints = gradePoints*numberOfCredits;
+        var totalCredits=+ credits;
+        gpa = totalPoints/totalCredits;
     }
 
     public void changeAdvisor(Professor newAdvisor){

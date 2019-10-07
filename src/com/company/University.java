@@ -34,7 +34,6 @@ public class University {
     }
 
     public void graduateStudents() {
-        //studentList = new ArrayList<Student>();
         for (var student : studentList) {
             if (student.getGPA() >= 2 && student.getCreditHours() >= 20) {//might have to change this?
                 studentList.remove(student);
@@ -71,17 +70,17 @@ public class University {
             input.nextLine();
             switch (userResponse) {
                 case 1:
-                    if(faculty==null){
+                    if(faculty.size()==0){
                         System.out.println("Hire a work force");
                         break;
                     }
                     else
                         System.out.println("Enter your name: ");
                         var name = input.nextLine();
-                        var prof = faculty.get(rand.nextInt(faculty.size()));//this method does not work yet
+                        var prof = faculty.get(rand.nextInt(faculty.size()));
                         var newStudent = new Student(prof, name);
                         admitStudent(newStudent);
-                        System.out.println(name +" is now admitted"+newStudent.getStudentID());
+                        System.out.println(name +" is now admitted with the ID of "+newStudent.getStudentID());
                         break;
                 case 2:
                     System.out.println("Enter the name of the professor:");
@@ -115,7 +114,7 @@ public class University {
                                 case 1:
                                     System.out.println("Enter your credits: ");
                                     var theCredits = input.nextInt();
-                                    System.out.println("Enter your grade: ");
+                                    System.out.println("Enter your grade number (A=4, B=3, C=2, D=1,F=0)");
                                     var theGrade = input.nextInt();
                                     foundStudent.takeClass(theCredits,theGrade);
                                     System.out.println("Class taken");
