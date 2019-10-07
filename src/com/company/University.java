@@ -71,13 +71,18 @@ public class University {
             input.nextLine();
             switch (userResponse) {
                 case 1:
-                    System.out.println("Enter your name: ");
-                    var name = input.nextLine();
-                    var prof = faculty.get(rand.nextInt(faculty.size()+1));//this method does not work yet
-                    var newStudent = new Student(prof, name);
-                    admitStudent(newStudent);
-                    System.out.println(name +" is now admitted");
-                    break;
+                    if(faculty==null){
+                        System.out.println("Hire a work force");
+                        break;
+                    }
+                    else
+                        System.out.println("Enter your name: ");
+                        var name = input.nextLine();
+                        var prof = faculty.get(rand.nextInt(faculty.size()));//this method does not work yet
+                        var newStudent = new Student(prof, name);
+                        admitStudent(newStudent);
+                        System.out.println(name +" is now admitted"+newStudent.getStudentID());
+                        break;
                 case 2:
                     System.out.println("Enter the name of the professor:");
                     var profName = input.nextLine();
@@ -99,12 +104,14 @@ public class University {
                         System.out.println(foundStudent.toString());
                         System.out.println("Would you like to bring up the student menu? (Type 'Y' if so)");
                         var selectMenu = input.nextLine();
+                        input.nextLine();
                         if(!selectMenu.toUpperCase().equals("Y")) {
                             System.out.println("Please Select One of the Following:");
                             System.out.println("  [1] Take Class");
                             System.out.println("  [2] Select Advisor");
+                            var userResponse2 = input.nextInt();
                             input.nextLine();
-                            switch (userResponse){
+                            switch (userResponse2){
                                 case 1:
                                     System.out.println("Enter your credits: ");
                                     var theCredits = input.nextInt();
@@ -114,6 +121,22 @@ public class University {
                                     System.out.println("Class taken");
                                     break;
                                 case 2:
+                                    var professorItr = 0;
+                                    var professorItrStr = Integer.toString(professorItr);
+                                    for(Professor professor: faculty){
+                                        System.out.println("[" + professorItr + "] " + professor.toString());
+                                        professorItr += 1;
+                                    }
+                                    System.out.println("Type in the number of the professor you want as advisor");
+                                    var pickProf = input.nextInt();
+                                    if (pickProf <= professorItr){
+                                        var theirAdvisor= foundStudent.getAdvisor();
+                                        theirAdvisor.removeAdvisee(foundStudent);
+                                        faculty.get(pickProf).addAdvisee(foundStudent);
+                                        System.out.println("Advisor Changed");
+                                    }
+                                    else
+                                        System.out.println("You cannot do that");
                                     break;
                                 default:
                                     System.out.println("Say that again?");
